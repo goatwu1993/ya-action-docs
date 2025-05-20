@@ -436,10 +436,10 @@ function getInputOutput(
         rowValue = key;
       } else if (columnName === "description") {
         rowValue = value[columnName];
-        if (value["deprecationMessage"] !== undefined) {
+        if (value.deprecationMessage !== undefined) {
           rowValue += "<br/>_Deprecated";
-          if (value["deprecationMessage"] !== "") {
-            rowValue += `: ${value["deprecationMessage"]}`;
+          if (value.deprecationMessage !== "") {
+            rowValue += `: ${value.deprecationMessage}`;
           }
           rowValue += "_";
         }

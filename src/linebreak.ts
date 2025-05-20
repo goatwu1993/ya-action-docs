@@ -14,9 +14,8 @@ export function getLineBreak(lineBreakType: LineBreakType): string {
 export function getLineBreakType(value: string): LineBreakType {
   if (isLineBreakType(value)) {
     return value;
-  } else {
-    return "LF" as LineBreakType;
   }
+  return "LF" as LineBreakType;
 }
 
 function isLineBreakType(value: string): value is LineBreakType {

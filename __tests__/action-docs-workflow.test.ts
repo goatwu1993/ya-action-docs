@@ -1,5 +1,5 @@
-import { copyFileSync, readFileSync, unlink, writeFileSync } from "fs";
-import * as path from "path";
+import { copyFileSync, readFileSync, unlink, writeFileSync } from "node:fs";
+import * as path from "node:path";
 import { Options, generateActionMarkdownDocs } from "../src";
 
 const fixtureDir = path.join("__tests__", "fixtures", "workflow");

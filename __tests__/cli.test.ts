@@ -68,7 +68,7 @@ function cli(args: string): Promise<CliResponse> {
       `node ${path.resolve("lib/cli.js")} ${args}`,
       (error, stdout, stderr) => {
         resolve({
-          code: error && error.code ? error.code : 0,
+          code: error?.code ? error.code : 0,
           error,
           stdout,
           stderr,
