@@ -10,7 +10,7 @@
     "prepare": "tsc",
     "build": "tsc",
     "format": "biome format --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
+    "format-check": "biome format **/*.ts",
     "lint": "biome check",
     "fix": "biome check --fix",
     "test": "vitest run --testTimeout=10000 --coverage",

@@ -31,10 +31,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
 
       - name: Run checks
-        run: yarn run test && yarn lint && yarn build
+        run: npm run test && npm run lint && npm run build
 
       # Use an app to authenticate to trigger workflows on the repository
       - name: Get app installation token
