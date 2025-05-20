@@ -1,6 +1,6 @@
-import { generateActionMarkdownDocs, Options } from "../src";
-import { readFileSync, writeFileSync, copyFileSync, unlink } from "fs";
+import { copyFileSync, readFileSync, unlink, writeFileSync } from "fs";
 import * as path from "path";
+import { Options, generateActionMarkdownDocs } from "../src";
 
 const fixtureDir = path.join("__tests__", "fixtures", "workflow");
 
@@ -161,7 +161,7 @@ interface ReadmeTestFixtures {
 async function testReadme(
   files: ReadmeTestFixtures,
   overwriteOptions?: Options,
-  doExpect: boolean = true,
+  doExpect = true,
 ) {
   const expected = <string>readFileSync(files.fixtureReadme, "utf-8");
   const original = <string>readFileSync(files.originalReadme, "utf-8");

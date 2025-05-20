@@ -1,8 +1,8 @@
-import { LineBreakType, getLineBreak } from "./linebreak.js";
-import { parse } from "yaml";
 import { readFileSync } from "fs";
 import replaceInFile from "replace-in-file";
 import pkg from "showdown";
+import { parse } from "yaml";
+import { LineBreakType, getLineBreak } from "./linebreak.js";
 const { Converter } = pkg;
 const converter = new Converter();
 
@@ -59,16 +59,16 @@ export const defaultOptions: DefaultOptions = {
 type ActionInputsOutputs = Record<string, InputOutput>;
 
 enum InputType {
-  number,
-  string,
-  boolean,
+  number = 0,
+  string = 1,
+  boolean = 2,
 }
 
 enum InputOutputType {
-  actionInput,
-  workflowInput,
-  actionOutput,
-  workflowSecret,
+  actionInput = 0,
+  workflowInput = 1,
+  actionOutput = 2,
+  workflowSecret = 3,
 }
 
 const inputOutputHeaders: Record<InputOutputType, string[]> = {

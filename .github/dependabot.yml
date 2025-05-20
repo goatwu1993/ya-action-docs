@@ -15,12 +15,9 @@ updates:
       octokit:
         patterns:
           - "@octokit/*"
-      eslint:
+      vitest:
         patterns:
-          - "eslint*"
-      jest:
-        patterns:
-          - "*jest*"
+          - "*vitest*"
       figlet:
         patterns:
           - "*figlet*"
