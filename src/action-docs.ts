@@ -1,5 +1,5 @@
-import { readFileSync } from "fs";
-import replaceInFile from "replace-in-file";
+import { readFileSync } from "node:fs";
+import { replaceInFile } from "replace-in-file";
 import pkg from "showdown";
 import { parse } from "yaml";
 import { LineBreakType, getLineBreak } from "./linebreak.js";
@@ -228,9 +228,8 @@ function generateDocs(options: DefaultOptions): Record<string, string> {
 
   if (yml.runs === undefined) {
     return generateWorkflowDocs(yml, options);
-  } else {
-    return generateActionDocs(yml, options);
   }
+  return generateActionDocs(yml, options);
 }
 
 function generateActionDocs(
@@ -370,7 +369,7 @@ async function updateReadme(
         matchProjectVersion ? matchProjectVersion[2] : "",
       );
 
-    await replaceInFile.replaceInFile({
+    await replaceInFile({
       files: options.readmeFile,
       from: regexp,
       to:
