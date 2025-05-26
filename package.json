@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "type": "module",
   "bin": {
-    "action-docs": "lib/cli.js"
+    "ya-action-docs": "lib/cli.js"
   },
   "scripts": {
     "prepare": "tsc",
@@ -17,8 +17,8 @@
     "test": "vitest --fileParallelism false --testTimeout=10000 --coverage",
     "test-default": "vitest --testTimeout=10000 --testPathIgnorePatterns=__tests__/cli.test.ts --collect-coverage --coverage",
     "test-cli": "vitest --testTimeout=10000 --silent --testMatch=**/cli*test.ts && nyc report --reporter=lcov --reporter=html --report-dir=./coverage_nyc",
-    "test-action": "vitest --testTimeout=10000 --silent --testMatch=**/action-docs-action.test.ts --coverage=false",
-    "test-workflow": "vitest --testTimeout=10000 --silent --testMatch=**/action-docs-workflow.test.ts --coverage=false",
+    "test-action": "vitest --testTimeout=10000 --silent --testMatch=**/ya-action-docs-action.test.ts --coverage=false",
+    "test-workflow": "vitest --testTimeout=10000 --silent --testMatch=**/ya-action-docs-workflow.test.ts --coverage=false",
     "dev-action": "npm run build && node lib/cli.js -s __tests__/fixtures/action/action.yml",
     "dev-workflow": "npm run build && node lib/cli.js -s __tests__/fixtures/workflow/workflow.yml",
     "help": "npm run build && node lib/cli.js --help",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/npalm/action-docs.git"
+    "url": "git+https://github.com/goatwu1993/ya-action-docs.git"
   },
   "keywords": [
     "actions",
@@ -63,9 +63,9 @@
     "yaml-types": "^0.4.0"
   },
   "bugs": {
-    "url": "https://github.com/npalm/action-docs/issues"
+    "url": "https://github.com/npalm/ya-action-docs/issues"
   },
-  "homepage": "https://github.com/npalm/action-docs#readme",
+  "homepage": "https://github.com/npalm/ya-action-docs#readme",
   "directories": {
     "dist": "lib"
   }

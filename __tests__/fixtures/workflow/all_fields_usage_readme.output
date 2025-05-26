@@ -1,10 +1,10 @@
-<!-- action-docs-usage source="__tests__/fixtures/workflow/all_fields_workflow.yml" project="npalm/action-docs" version="v1" -->
+<!-- ya-action-docs-usage source="__tests__/fixtures/workflow/all_fields_workflow.yml" project="npalm/ya-action-docs" version="v1" -->
 ### Usage
 
 ```yaml
 jobs:
   job1:
-    uses: npalm/action-docs@v1
+    uses: npalm/ya-action-docs@v1
     with:
       inputA:
       # A description A
@@ -41,4 +41,4 @@ jobs:
       # Required: false
       # Default: false
 ```
-<!-- action-docs-usage source="__tests__/fixtures/workflow/all_fields_workflow.yml" project="npalm/action-docs" version="v1" -->
+<!-- ya-action-docs-usage source="__tests__/fixtures/workflow/all_fields_workflow.yml" project="npalm/ya-action-docs" version="v1" -->

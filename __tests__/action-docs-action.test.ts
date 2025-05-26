@@ -130,7 +130,7 @@ describe('Test update readme ', () => {
     );
   });
 
-  test('Readme (inputs) for action-docs-action', async () => {
+  test('Readme (inputs) for ya-action-docs-action', async () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'action_docs_action_action.yml'),
       originalReadme: path.join(fixtureDir, 'action_docs_action_readme.input'),

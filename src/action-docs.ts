@@ -335,18 +335,18 @@ async function updateReadme(
 
   const readmeFileText = String(readFileSync(options.readmeFile, 'utf-8'));
   const sourceOrActionMatches = readmeFileText.match(
-    new RegExp(`<!-- action-docs-${section} (source|action)`),
+    new RegExp(`<!-- ya-action-docs-${section} (source|action)`),
   ) as string[];
 
   if (sourceOrActionMatches) {
     const sourceOrAction = sourceOrActionMatches[1];
     const matchProjectVersion = readmeFileText.match(
       new RegExp(
-        `<!-- action-docs-${section} ${sourceOrAction}="${escapeRegExp(sourceFile)}" project="(.*)" version="(.*)" -->.?`,
+        `<!-- ya-action-docs-${section} ${sourceOrAction}="${escapeRegExp(sourceFile)}" project="(.*)" version="(.*)" -->.?`,
       ),
     ) as string[];
 
-    let commentExpression = `<!-- action-docs-${section} ${sourceOrAction}="${sourceFile}" PROJECT_VERSION-->`;
+    let commentExpression = `<!-- ya-action-docs-${section} ${sourceOrAction}="${sourceFile}" PROJECT_VERSION-->`;
     commentExpression = commentExpression.replace(
       'PROJECT_VERSION',
       matchProjectVersion

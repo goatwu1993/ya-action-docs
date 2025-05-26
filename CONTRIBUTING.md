@@ -12,7 +12,7 @@ Please take a moment to review this document in order to make the contribution p
 Before you begin:
 
 - Have you read the [code of conduct](CODE_OF_CONDUCT.md)?
-- Check out the [existing issues](https://github.com/npalm/action-docs/issues).
+- Check out the [existing issues](https://github.com/npalm/ya-action-docs/issues).
 
 
 ## We Develop with Github
