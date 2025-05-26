@@ -1,38 +1,39 @@
-import * as cp from "child_process";
-import * as path from "path";
+import * as cp from 'node:child_process';
+import * as path from 'node:path';
+import { describe, expect, test } from 'vitest';
 
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from 'node:fs';
 
-const fixtureDir = path.join("__tests__", "fixtures", "action");
+const fixtureDir = path.join('__tests__', 'fixtures', 'action');
 
-describe("CLI tests", () => {
-  test("Update readme default", async () => {
+describe('CLI tests', () => {
+  test('Update readme default', async () => {
     await testReadme(
-      path.join(fixtureDir, "all_fields_action.yml"),
-      path.join(fixtureDir, "all_fields_readme.input"),
-      path.join(fixtureDir, "all_fields_readme.output"),
-      "-n true",
+      path.join(fixtureDir, 'all_fields_action.yml'),
+      path.join(fixtureDir, 'all_fields_readme.input'),
+      path.join(fixtureDir, 'all_fields_readme.output'),
+      '-n true',
     );
   });
 
-  test("Update readme with CRLF line breaks.", async () => {
+  test('Update readme with CRLF line breaks.', async () => {
     await testReadme(
-      path.join(fixtureDir, "all_fields_action.yml.crlf"),
-      path.join(fixtureDir, "all_fields_readme.input.crlf"),
-      path.join(fixtureDir, "all_fields_readme.output.crlf"),
-      "-l CRLF",
+      path.join(fixtureDir, 'all_fields_action.yml.crlf'),
+      path.join(fixtureDir, 'all_fields_readme.input.crlf'),
+      path.join(fixtureDir, 'all_fields_readme.output.crlf'),
+      '-l CRLF',
     );
   });
 
-  test("Console output with TOC 3 and no banner.", async () => {
+  test('Console output with TOC 3 and no banner.', async () => {
     const result = await cli(
-      `-s ${path.join(fixtureDir, "all_fields_action.yml")} -t 3 --no-banner`,
+      `-s ${path.join(fixtureDir, 'all_fields_action.yml')} -t 3 --no-banner`,
     );
 
     const expected = <string>(
       readFileSync(
-        path.join(fixtureDir, "all_fields_action_toc3_cli.output"),
-        "utf-8",
+        path.join(fixtureDir, 'all_fields_action_toc3_cli.output'),
+        'utf-8',
       )
     );
 
@@ -40,13 +41,13 @@ describe("CLI tests", () => {
     expect(result.stdout).toEqual(`${expected}\n`);
   });
 
-  test("Console output including name header and no banner.", async () => {
+  test('Console output including name header and no banner.', async () => {
     const result = await cli(
-      `-s ${path.join(fixtureDir, "action.yml")} -n true --no-banner`,
+      `-s ${path.join(fixtureDir, 'action.yml')} -n true --no-banner`,
     );
 
     const expected = <string>(
-      readFileSync(path.join(fixtureDir, "default-with-header.output"), "utf-8")
+      readFileSync(path.join(fixtureDir, 'default-with-header.output'), 'utf-8')
     );
 
     expect(result.code).toBe(0);
@@ -64,10 +65,10 @@ interface CliResponse {
 function cli(args: string): Promise<CliResponse> {
   return new Promise((resolve) => {
     cp.exec(
-      `node ${path.resolve("lib/cli.js")} ${args}`,
+      `node ${path.resolve('lib/cli.js')} ${args}`,
       (error, stdout, stderr) => {
         resolve({
-          code: error && error.code ? error.code : 0,
+          code: error?.code ? error.code : 0,
           error,
           stdout,
           stderr,
@@ -81,18 +82,18 @@ async function testReadme(
   sourceFile: string,
   originalReadme: string,
   fixtureReadme: string,
-  extraArgs = "",
+  extraArgs = '',
   exitCode = 0,
 ) {
-  const expected = <string>readFileSync(fixtureReadme, "utf-8");
-  const original = <string>readFileSync(originalReadme, "utf-8");
+  const expected = <string>readFileSync(fixtureReadme, 'utf-8');
+  const original = <string>readFileSync(originalReadme, 'utf-8');
 
   const result = await cli(
     `-u ${originalReadme} -s ${sourceFile} ${extraArgs}`,
   );
   expect(result.code).toBe(exitCode);
 
-  const updated = <string>readFileSync(originalReadme, "utf-8");
+  const updated = <string>readFileSync(originalReadme, 'utf-8');
 
   writeFileSync(originalReadme, original);
   expect(updated).toEqual(expected);

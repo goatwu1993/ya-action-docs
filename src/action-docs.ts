@@ -1,8 +1,8 @@
-import { LineBreakType, getLineBreak } from "./linebreak.js";
-import { parse } from "yaml";
-import { readFileSync } from "fs";
-import replaceInFile from "replace-in-file";
-import pkg from "showdown";
+import { readFileSync } from 'node:fs';
+import replaceInFile from 'replace-in-file';
+import pkg from 'showdown';
+import { parse } from 'yaml';
+import { LineBreakType, getLineBreak } from './linebreak.js';
 const { Converter } = pkg;
 const converter = new Converter();
 
@@ -49,45 +49,45 @@ interface DefaultOptions {
 
 export const defaultOptions: DefaultOptions = {
   tocLevel: 2,
-  sourceFile: "action.yml",
+  sourceFile: 'action.yml',
   updateReadme: false,
-  readmeFile: "README.md",
-  lineBreaks: "LF",
+  readmeFile: 'README.md',
+  lineBreaks: 'LF',
   includeNameHeader: false,
 };
 
 type ActionInputsOutputs = Record<string, InputOutput>;
 
 enum InputType {
-  number,
-  string,
-  boolean,
+  number = 0,
+  string = 1,
+  boolean = 2,
 }
 
 enum InputOutputType {
-  actionInput,
-  workflowInput,
-  actionOutput,
-  workflowSecret,
+  actionInput = 0,
+  workflowInput = 1,
+  actionOutput = 2,
+  workflowSecret = 3,
 }
 
 const inputOutputHeaders: Record<InputOutputType, string[]> = {
-  [InputOutputType.actionInput]: ["name", "description", "required", "default"],
+  [InputOutputType.actionInput]: ['name', 'description', 'required', 'default'],
   [InputOutputType.workflowInput]: [
-    "name",
-    "description",
-    "type",
-    "required",
-    "default",
+    'name',
+    'description',
+    'type',
+    'required',
+    'default',
   ],
-  [InputOutputType.actionOutput]: ["name", "description"],
-  [InputOutputType.workflowSecret]: ["name", "description", "required"],
+  [InputOutputType.actionOutput]: ['name', 'description'],
+  [InputOutputType.workflowSecret]: ['name', 'description', 'required'],
 };
 
 const inputOutputDefaults: Record<string, string> = {
-  description: "",
-  type: "",
-  required: "false",
+  description: '',
+  type: '',
+  required: 'false',
   default: '""',
 };
 
@@ -107,13 +107,13 @@ function createMdTable(
   const tableData = getInputOutput(data, type);
 
   const headers = tableData.headers;
-  const filler = Array(tableData.headers.length).fill("---");
+  const filler = Array(tableData.headers.length).fill('---');
 
   const result = [headers, filler]
     .concat(tableData.rows)
     .filter((x) => x.length > 0)
-    .map((x) => `| ${x.join(" | ")} |${getLineBreak(options.lineBreaks)}`)
-    .join("");
+    .map((x) => `| ${x.join(' | ')} |${getLineBreak(options.lineBreaks)}`)
+    .join('');
 
   return result;
 }
@@ -123,18 +123,18 @@ function createMdCodeBlock(
   options: DefaultOptions,
   isAction = true,
 ): string {
-  let codeBlockArray = ["```yaml"];
+  let codeBlockArray = ['```yaml'];
 
-  let indent = "";
+  let indent = '';
 
   if (isAction) {
-    codeBlockArray.push("- uses: ***PROJECT***@***VERSION***");
-    indent += "  ";
+    codeBlockArray.push('- uses: ***PROJECT***@***VERSION***');
+    indent += '  ';
   } else {
-    codeBlockArray.push("jobs:");
-    indent += "  ";
+    codeBlockArray.push('jobs:');
+    indent += '  ';
     codeBlockArray.push(`${indent}job1:`);
-    indent += "  ";
+    indent += '  ';
     codeBlockArray.push(`${indent}uses: ***PROJECT***@***VERSION***`);
   }
 
@@ -146,13 +146,13 @@ function createMdCodeBlock(
 
   if (data) {
     codeBlockArray.push(`${indent}with:`);
-    indent += "  ";
+    indent += '  ';
 
     for (const row of inputs.rows) {
       const inputName = row[0];
       const inputDescCommented = row[1]
         .split(/(\r\n|\n|\r)/gm)
-        .filter((l) => !["", "\r", "\n", "\r\n"].includes(l))
+        .filter((l) => !['', '\r', '\n', '\r\n'].includes(l))
         .map((l) => `# ${l}`);
       const type = isAction ? undefined : row[2];
       const isRequired = isAction ? row[2] : row[3];
@@ -160,7 +160,7 @@ function createMdCodeBlock(
 
       const inputBlock = [`${inputName}:`];
       inputBlock.push(...inputDescCommented);
-      inputBlock.push("#");
+      inputBlock.push('#');
       if (type) {
         inputBlock.push(`# Type: ${type}`);
       }
@@ -170,17 +170,17 @@ function createMdCodeBlock(
       }
 
       codeBlockArray.push(...inputBlock.map((l) => `${indent}${l}`));
-      codeBlockArray.push("");
+      codeBlockArray.push('');
     }
     if (inputs.rows.length > 0) {
       codeBlockArray = codeBlockArray.slice(0, -1);
     }
   }
 
-  codeBlockArray.push("```");
+  codeBlockArray.push('```');
 
   // Create final resulting code block
-  let result = "";
+  let result = '';
   for (const line of codeBlockArray) {
     result = `${result}${line}${getLineBreak(options.lineBreaks)}`;
   }
@@ -188,7 +188,7 @@ function createMdCodeBlock(
 }
 
 function getToc(tocLevel: number): string {
-  let result = "";
+  let result = '';
   for (let i = 0; i < tocLevel; i++) {
     result = `${result}#`;
   }
@@ -204,7 +204,7 @@ export async function generateActionMarkdownDocs(
   };
 
   const docs = generateDocs(options);
-  let outputString = "";
+  let outputString = '';
 
   for (const key in docs) {
     const value = docs[key];
@@ -217,20 +217,19 @@ export async function generateActionMarkdownDocs(
   }
 
   if (options.updateReadme) {
-    await updateReadme(options, outputString, "all", options.sourceFile);
+    await updateReadme(options, outputString, 'all', options.sourceFile);
   }
 
   return outputString;
 }
 
 function generateDocs(options: DefaultOptions): Record<string, string> {
-  const yml = parse(readFileSync(options.sourceFile, "utf-8")) as YmlStructure;
+  const yml = parse(readFileSync(options.sourceFile, 'utf-8')) as YmlStructure;
 
   if (yml.runs === undefined) {
     return generateWorkflowDocs(yml, options);
-  } else {
-    return generateActionDocs(yml, options);
   }
+  return generateActionDocs(yml, options);
 }
 
 function generateActionDocs(
@@ -239,14 +238,14 @@ function generateActionDocs(
 ): Record<string, string> {
   return {
     header: generateHeader(yml, options),
-    description: createMarkdownSection(options, yml.description, "Description"),
+    description: createMarkdownSection(options, yml.description, 'Description'),
     inputs: generateInputs(yml.inputs, options, InputOutputType.actionInput),
     outputs: generateOutputs(yml.outputs, options),
     runs: createMarkdownSection(
       options,
       // eslint-disable-next-line i18n-text/no-en
       `This action is a \`${yml.runs.using}\` action.`,
-      "Runs",
+      'Runs',
     ),
     usage: generateUsage(yml.inputs, options),
   };
@@ -265,13 +264,13 @@ function generateWorkflowDocs(
     ),
     secrets: generateSecrets(yml.on.workflow_call?.secrets, options),
     outputs: generateOutputs(yml.on.workflow_call?.outputs, options),
-    runs: "",
+    runs: '',
     usage: generateUsage(yml.on.workflow_call?.inputs, options, false),
   };
 }
 
 function generateHeader(yml: YmlStructure, options: DefaultOptions): string {
-  let header = "";
+  let header = '';
   if (options.includeNameHeader) {
     header = createMarkdownHeader(options, yml.name);
     options.tocLevel++;
@@ -286,7 +285,7 @@ function generateInputs(
   type: InputOutputType,
 ): string {
   const inputMdTable = createMdTable(data, options, type);
-  return createMarkdownSection(options, inputMdTable, "Inputs");
+  return createMarkdownSection(options, inputMdTable, 'Inputs');
 }
 
 function generateSecrets(
@@ -298,7 +297,7 @@ function generateSecrets(
     options,
     InputOutputType.workflowSecret,
   );
-  return createMarkdownSection(options, secretMdTable, "Secrets");
+  return createMarkdownSection(options, secretMdTable, 'Secrets');
 }
 
 function generateOutputs(
@@ -310,7 +309,7 @@ function generateOutputs(
     options,
     InputOutputType.actionOutput,
   );
-  return createMarkdownSection(options, outputMdTable, "Outputs");
+  return createMarkdownSection(options, outputMdTable, 'Outputs');
 }
 
 function generateUsage(
@@ -319,11 +318,11 @@ function generateUsage(
   isAction = true,
 ): string {
   const usageMdCodeBlock = createMdCodeBlock(data, options, isAction);
-  return createMarkdownSection(options, usageMdCodeBlock, "Usage");
+  return createMarkdownSection(options, usageMdCodeBlock, 'Usage');
 }
 
 function escapeRegExp(x: string): string {
-  return x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
 async function updateReadme(
@@ -334,7 +333,7 @@ async function updateReadme(
 ): Promise<void> {
   const lineBreak = getLineBreak(options.lineBreaks);
 
-  const readmeFileText = String(readFileSync(options.readmeFile, "utf-8"));
+  const readmeFileText = String(readFileSync(options.readmeFile, 'utf-8'));
   const sourceOrActionMatches = readmeFileText.match(
     new RegExp(`<!-- action-docs-${section} (source|action)`),
   ) as string[];
@@ -349,10 +348,10 @@ async function updateReadme(
 
     let commentExpression = `<!-- action-docs-${section} ${sourceOrAction}="${sourceFile}" PROJECT_VERSION-->`;
     commentExpression = commentExpression.replace(
-      "PROJECT_VERSION",
+      'PROJECT_VERSION',
       matchProjectVersion
         ? `project="${matchProjectVersion[1]}" version="${matchProjectVersion[2]}" `
-        : "",
+        : '',
     );
 
     const regexp = new RegExp(
@@ -362,12 +361,12 @@ async function updateReadme(
     const processedText = text
       .trim()
       .replace(
-        "***PROJECT***",
-        matchProjectVersion ? matchProjectVersion[1] : "",
+        '***PROJECT***',
+        matchProjectVersion ? matchProjectVersion[1] : '',
       )
       .replace(
-        "***VERSION***",
-        matchProjectVersion ? matchProjectVersion[2] : "",
+        '***VERSION***',
+        matchProjectVersion ? matchProjectVersion[2] : '',
       );
 
     await replaceInFile.replaceInFile({
@@ -390,8 +389,8 @@ function createMarkdownSection(
 ): string {
   const lineBreak = getLineBreak(options.lineBreaks);
 
-  return data === "" || data === undefined
-    ? ""
+  return data === '' || data === undefined
+    ? ''
     : `${createMarkdownHeader(options, header)}${data}` +
         `${lineBreak}` +
         `${lineBreak}`;
@@ -404,11 +403,11 @@ function createMarkdownHeader(options: DefaultOptions, header: string): string {
 }
 
 function isHtmlColumn(columnName: string): boolean {
-  return columnName === "description";
+  return columnName === 'description';
 }
 
 function stripNewLines(value: string): string {
-  return value.replace(/\r\n|\r|\n/g, " ");
+  return value.replace(/\r\n|\r|\n/g, ' ');
 }
 
 function getInputOutput(
@@ -431,22 +430,22 @@ function getInputOutput(
     rows[i] = [];
 
     for (const columnName of headers) {
-      let rowValue = "";
+      let rowValue = '';
 
-      if (columnName === "name") {
+      if (columnName === 'name') {
         rowValue = key;
-      } else if (columnName === "description") {
+      } else if (columnName === 'description') {
         rowValue = value[columnName];
-        if (value["deprecationMessage"] !== undefined) {
-          rowValue += "<br/>_Deprecated";
-          if (value["deprecationMessage"] !== "") {
-            rowValue += `: ${value["deprecationMessage"]}`;
+        if (value.deprecationMessage !== undefined) {
+          rowValue += '<br/>_Deprecated';
+          if (value.deprecationMessage !== '') {
+            rowValue += `: ${value.deprecationMessage}`;
           }
-          rowValue += "_";
+          rowValue += '_';
         }
-      } else if (columnName === "default") {
+      } else if (columnName === 'default') {
         rowValue =
-          value[columnName] !== undefined && value[columnName] !== ""
+          value[columnName] !== undefined && value[columnName] !== ''
             ? stripNewLines(String(value[columnName]))
             : inputOutputDefaults[columnName];
       } else {

@@ -1,153 +1,154 @@
-import { generateActionMarkdownDocs, Options } from "../src";
-import { readFileSync, writeFileSync, copyFileSync, unlink } from "fs";
-import * as path from "path";
+import { copyFileSync, readFileSync, unlink, writeFileSync } from 'node:fs';
+import * as path from 'node:path';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+import { Options, generateActionMarkdownDocs } from '../src';
 
-const fixtureDir = path.join("__tests__", "fixtures", "workflow");
+const fixtureDir = path.join('__tests__', 'fixtures', 'workflow');
 
 // By default a 'workflow.yml' is expected at the runtime location. Therefore we copy one during the test.
 beforeAll(() => {
-  copyFileSync(path.join(fixtureDir, "workflow.yml"), "workflow.yml");
+  copyFileSync(path.join(fixtureDir, 'workflow.yml'), 'workflow.yml');
 });
 
 afterAll(() => {
-  return unlink("workflow.yml", (err) => {
+  return unlink('workflow.yml', (err) => {
     if (err) throw err;
   });
 });
 
-describe("Test output", () => {
-  test("With defaults.", async () => {
+describe('Test output', () => {
+  test('With defaults.', async () => {
     const markdown = await generateActionMarkdownDocs({
-      sourceFile: path.join(fixtureDir, "workflow.yml"),
+      sourceFile: path.join(fixtureDir, 'workflow.yml'),
       includeNameHeader: true,
     });
     const expected = <string>(
-      readFileSync(path.join(fixtureDir, "default.output"), "utf-8")
+      readFileSync(path.join(fixtureDir, 'default.output'), 'utf-8')
     );
 
     expect(markdown).toEqual(expected);
   });
 
-  test("With secrets.", async () => {
+  test('With secrets.', async () => {
     const markdown = await generateActionMarkdownDocs({
-      sourceFile: path.join(fixtureDir, "secrets_workflow.yml"),
+      sourceFile: path.join(fixtureDir, 'secrets_workflow.yml'),
       includeNameHeader: true,
     });
     const expected = <string>(
-      readFileSync(path.join(fixtureDir, "secrets_workflow.output"), "utf-8")
+      readFileSync(path.join(fixtureDir, 'secrets_workflow.output'), 'utf-8')
     );
 
     expect(markdown).toEqual(expected);
   });
 
-  test("A minimal workflow definition.", async () => {
+  test('A minimal workflow definition.', async () => {
     const markdown = await generateActionMarkdownDocs({
-      sourceFile: path.join(fixtureDir, "minimal_workflow.yml"),
+      sourceFile: path.join(fixtureDir, 'minimal_workflow.yml'),
       includeNameHeader: true,
     });
     const expected = <string>(
-      readFileSync(path.join(fixtureDir, "minimal_workflow.output"), "utf-8")
+      readFileSync(path.join(fixtureDir, 'minimal_workflow.output'), 'utf-8')
     );
 
     expect(markdown).toEqual(expected);
   });
 
-  test("All fields workflow definition.", async () => {
+  test('All fields workflow definition.', async () => {
     const markdown = await generateActionMarkdownDocs({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       includeNameHeader: true,
     });
     const expected = <string>(
-      readFileSync(path.join(fixtureDir, "all_fields_workflow.output"), "utf-8")
+      readFileSync(path.join(fixtureDir, 'all_fields_workflow.output'), 'utf-8')
     );
 
     expect(markdown).toEqual(expected);
   });
 });
 
-describe("Test update readme ", () => {
-  test("Empty readme (all fields)", async () => {
+describe('Test update readme ', () => {
+  test('Empty readme (all fields)', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-      originalReadme: path.join(fixtureDir, "all_fields_readme.input"),
-      fixtureReadme: path.join(fixtureDir, "all_fields_readme.output"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'all_fields_readme.input'),
+      fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output'),
     });
   });
 
-  test("All fields one annotation", async () => {
+  test('All fields one annotation', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-      originalReadme: path.join(fixtureDir, "all_fields_one_annotation.input"),
-      fixtureReadme: path.join(fixtureDir, "all_fields_one_annotation.output"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'all_fields_one_annotation.input'),
+      fixtureReadme: path.join(fixtureDir, 'all_fields_one_annotation.output'),
     });
   });
 
-  test("Filled readme (all fields)", async () => {
+  test('Filled readme (all fields)', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-      originalReadme: path.join(fixtureDir, "all_fields_readme_filled.input"),
-      fixtureReadme: path.join(fixtureDir, "all_fields_readme_filled.output"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'all_fields_readme_filled.input'),
+      fixtureReadme: path.join(fixtureDir, 'all_fields_readme_filled.output'),
     });
   });
 
-  test("Readme (all fields) with CRLF line breaks", async () => {
+  test('Readme (all fields) with CRLF line breaks', async () => {
     await testReadme(
       {
-        sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-        originalReadme: path.join(fixtureDir, "all_fields_readme.input.crlf"),
-        fixtureReadme: path.join(fixtureDir, "all_fields_readme.output.crlf"),
+        sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+        originalReadme: path.join(fixtureDir, 'all_fields_readme.input.crlf'),
+        fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output.crlf'),
       },
-      { lineBreaks: "CRLF" },
+      { lineBreaks: 'CRLF' },
     );
   });
 
-  test("Readme (inputs) for action_docs_workflow", async () => {
+  test('Readme (inputs) for action_docs_workflow', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "action_docs_workflow.yml"),
+      sourceFile: path.join(fixtureDir, 'action_docs_workflow.yml'),
       originalReadme: path.join(
         fixtureDir,
-        "action_docs_workflow_readme.input",
+        'action_docs_workflow_readme.input',
       ),
       fixtureReadme: path.join(
         fixtureDir,
-        "action_docs_workflow_readme.output",
+        'action_docs_workflow_readme.output',
       ),
     });
   });
 
-  test("Readme for two workflow.yml-s", async () => {
+  test('Readme for two workflow.yml-s', async () => {
     await testReadme(
       {
-        sourceFile: path.join(fixtureDir, "action_docs_workflow.yml"),
-        originalReadme: path.join(fixtureDir, "two_workflows_readme.input"),
-        fixtureReadme: path.join(fixtureDir, "two_workflows_readme.output"),
+        sourceFile: path.join(fixtureDir, 'action_docs_workflow.yml'),
+        originalReadme: path.join(fixtureDir, 'two_workflows_readme.input'),
+        fixtureReadme: path.join(fixtureDir, 'two_workflows_readme.output'),
       },
       {},
       false,
     );
 
     await testReadme({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-      originalReadme: path.join(fixtureDir, "two_workflows_readme.input"),
-      fixtureReadme: path.join(fixtureDir, "two_workflows_readme.output"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'two_workflows_readme.input'),
+      fixtureReadme: path.join(fixtureDir, 'two_workflows_readme.output'),
     });
   });
 });
 
-describe("Test usage format", () => {
-  test("Multi-line descriptions.", async () => {
+describe('Test usage format', () => {
+  test('Multi-line descriptions.', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "workflow.yml"),
-      originalReadme: path.join(fixtureDir, "workflow_usage_readme.input"),
-      fixtureReadme: path.join(fixtureDir, "workflow_usage_readme.output"),
+      sourceFile: path.join(fixtureDir, 'workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'workflow_usage_readme.input'),
+      fixtureReadme: path.join(fixtureDir, 'workflow_usage_readme.output'),
     });
   });
 
-  test("With and without defaults.", async () => {
+  test('With and without defaults.', async () => {
     await testReadme({
-      sourceFile: path.join(fixtureDir, "all_fields_workflow.yml"),
-      originalReadme: path.join(fixtureDir, "all_fields_usage_readme.input"),
-      fixtureReadme: path.join(fixtureDir, "all_fields_usage_readme.output"),
+      sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
+      originalReadme: path.join(fixtureDir, 'all_fields_usage_readme.input'),
+      fixtureReadme: path.join(fixtureDir, 'all_fields_usage_readme.output'),
     });
   });
 });
@@ -161,10 +162,10 @@ interface ReadmeTestFixtures {
 async function testReadme(
   files: ReadmeTestFixtures,
   overwriteOptions?: Options,
-  doExpect: boolean = true,
+  doExpect = true,
 ) {
-  const expected = <string>readFileSync(files.fixtureReadme, "utf-8");
-  const original = <string>readFileSync(files.originalReadme, "utf-8");
+  const expected = <string>readFileSync(files.fixtureReadme, 'utf-8');
+  const original = <string>readFileSync(files.originalReadme, 'utf-8');
 
   try {
     await generateActionMarkdownDocs({
@@ -175,7 +176,7 @@ async function testReadme(
       ...overwriteOptions,
     });
 
-    const updated = <string>readFileSync(files.originalReadme, "utf-8");
+    const updated = <string>readFileSync(files.originalReadme, 'utf-8');
 
     if (doExpect) {
       expect(updated).toEqual(expected);
