@@ -1,6 +1,6 @@
 <!-- BADGES/ -->
 
-![example workflow](https://github.com/npalm/ya-action-docs/actions/workflows/ci.yml/badge.svg) [![npm](https://img.shields.io/npm/v/ya-action-docs.svg)](https://npmjs.org/package/ya-action-docs) [![CodeScene Code Health](https://codescene.io/projects/49602/status-badges/code-health)](https://codescene.io/projects/49602)
+[![npm](https://img.shields.io/npm/v/ya-action-docs.svg)](https://npmjs.org/package/ya-action-docs) [![CodeScene Code Health](https://codescene.io/projects/49602/status-badges/code-health)](https://codescene.io/projects/49602)
 
 <!-- /BADGES -->
 
