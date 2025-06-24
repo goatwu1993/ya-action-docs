@@ -10,6 +10,7 @@
   },
   "scripts": {
     "prepare": "tsc",
+    "tsc": "tsc",
     "build": "tsc",
     "cspell": "cspell .",
     "format": "biome format --write",
