@@ -21,7 +21,7 @@
       ]
     }
   },
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "npm install",
   "waitFor": "postCreateCommand",
   "onCreateCommand": "sudo cp .devcontainer/welcome.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt"
 }

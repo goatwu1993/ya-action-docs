@@ -5,7 +5,7 @@
 
 ### Bug Fixes
 
-* **deps:** bump cross-spawn from 7.0.3 to 7.0.6 in the npm_and_yarn group ([#748](https://github.com/npalm/action-docs/issues/748)) ([60329fe](https://github.com/npalm/action-docs/commit/60329fe50c75418229461e7c186e37b8eb079035))
+* **deps:** bump cross-spawn from 7.0.3 to 7.0.6 in the npm_and_npm group ([#748](https://github.com/npalm/action-docs/issues/748)) ([60329fe](https://github.com/npalm/action-docs/commit/60329fe50c75418229461e7c186e37b8eb079035))
 * **deps:** bump yaml from 2.6.0 to 2.7.0 ([#770](https://github.com/npalm/action-docs/issues/770)) ([ca38507](https://github.com/npalm/action-docs/commit/ca385078bcff6f55aea72d52e0731e44ff29c0b1))
 
 ## [2.5.1](https://github.com/npalm/action-docs/compare/v2.5.0...v2.5.1) (2024-11-10)
@@ -33,7 +33,7 @@
 
 ### Bug Fixes
 
-* **deps:** bump micromatch from 4.0.5 to 4.0.8 in the npm_and_yarn group ([#689](https://github.com/npalm/action-docs/issues/689)) ([f3f9983](https://github.com/npalm/action-docs/commit/f3f9983a041d6e2b33584644cf3c0b47996afc27))
+* **deps:** bump micromatch from 4.0.5 to 4.0.8 in the npm_and_npm group ([#689](https://github.com/npalm/action-docs/issues/689)) ([f3f9983](https://github.com/npalm/action-docs/commit/f3f9983a041d6e2b33584644cf3c0b47996afc27))
 * **deps:** bump yaml from 2.4.2 to 2.5.0 ([#665](https://github.com/npalm/action-docs/issues/665)) ([de67387](https://github.com/npalm/action-docs/commit/de67387cc6a8fdb651e39bb1b8011406c55bac9a))
 
 ## [2.4.2](https://github.com/npalm/action-docs/compare/v2.4.1...v2.4.2) (2024-07-03)
@@ -41,7 +41,7 @@
 
 ### Bug Fixes
 
-* **deps:** bump braces from 3.0.2 to 3.0.3 in the npm_and_yarn group ([#634](https://github.com/npalm/action-docs/issues/634)) ([d250deb](https://github.com/npalm/action-docs/commit/d250debd2fd5bb7ea5a36fe21f08c6b48fe8389b))
+* **deps:** bump braces from 3.0.2 to 3.0.3 in the npm_and_npm group ([#634](https://github.com/npalm/action-docs/issues/634)) ([d250deb](https://github.com/npalm/action-docs/commit/d250debd2fd5bb7ea5a36fe21f08c6b48fe8389b))
 * **deps:** bump yaml from 2.4.1 to 2.4.2 ([#601](https://github.com/npalm/action-docs/issues/601)) ([abe0bff](https://github.com/npalm/action-docs/commit/abe0bff7b1f82754fbccd0ab636c9600a2c5a3d8))
 * Ignore empty inputs in workflows and actions ([#620](https://github.com/npalm/action-docs/issues/620)) ([b0b7b4e](https://github.com/npalm/action-docs/commit/b0b7b4e73acbefc900e06f9cbb7854e4ea5dc68d))
 
@@ -127,7 +127,7 @@
 ### Miscellaneous
 
 * **ci:** fix release ([5b4130b](https://github.com/npalm/action-docs/commit/5b4130bbc2f77a91445d4f6ce9059bb2845f64bf))
-* **ci:** fix yarn publish ([ea14467](https://github.com/npalm/action-docs/commit/ea14467ce8b0d7eda1a90a75cce436e79e9e88a2))
+* **ci:** fix npm publish ([ea14467](https://github.com/npalm/action-docs/commit/ea14467ce8b0d7eda1a90a75cce436e79e9e88a2))
 * **main:** release 1.3.0 ([#404](https://github.com/npalm/action-docs/issues/404)) ([78c00c9](https://github.com/npalm/action-docs/commit/78c00c986edc29c6156e16688a667aed83aa300d))
 
 ## [1.3.0](https://github.com/npalm/action-docs/compare/1.2.0...v1.3.0) (2023-04-07)

@@ -28,13 +28,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Check format and lint
-        run: yarn run format-check && yarn run lint
+        run: npm run format-check && npm run lint
 
       - name: Build and package
-        run: yarn run build
+        run: npm run build
 
       - name: Run tests
-        run: yarn test
+        run: npm run test

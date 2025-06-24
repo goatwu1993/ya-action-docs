@@ -31,10 +31,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm --frozen-lockfile
 
       - name: Run checks
-        run: yarn run test && yarn lint && yarn build
+        run: npm run test && npm lint && npm build
 
       # Use an app to authenticate to trigger workflows on the repository
       - name: Get app installation token
@@ -51,7 +51,7 @@ jobs:
           release-type: node
 
       - name: Publish to NPM
-        run: yarn publish
+        run: npm publish
         if: ${{ steps.release.outputs.release_created }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
