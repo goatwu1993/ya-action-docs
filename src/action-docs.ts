@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import replaceInFile from 'replace-in-file';
+import { replaceInFile } from 'replace-in-file';
 import pkg from 'showdown';
 import { parse } from 'yaml';
 import { LineBreakType, getLineBreak } from './linebreak.js';
@@ -369,7 +369,7 @@ async function updateReadme(
         matchProjectVersion ? matchProjectVersion[2] : '',
       );
 
-    await replaceInFile.replaceInFile({
+    await replaceInFile({
       files: options.readmeFile,
       from: regexp,
       to:
