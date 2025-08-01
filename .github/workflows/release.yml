@@ -31,7 +31,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm --frozen-lockfile
+        run: npm ci
 
       - name: Run checks
         run: npm run test && npm lint && npm build
