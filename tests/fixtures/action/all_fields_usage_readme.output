@@ -1,0 +1,37 @@
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="npalm/ya-action-docs" version="v1" -->
+## Usage
+
+```yaml
+- uses: npalm/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+```
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="npalm/ya-action-docs" version="v1" -->

@@ -1,0 +1,12 @@
+<!-- ya-action-docs-inputs source="tests/fixtures/workflow/action_docs_workflow.yml" -->
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| `readme` | <p>Readme file to update.</p> | `false` | `README.md` |
+| `sourceFile` | <p>The action definition file.</p> | `false` | `action.yml` |
+| `tocLevel` | <p>TOC level used for the headers.</p> | `false` | `2` |
+| `lineBreaks` | <p>Line breaks to be used in updated readme (LF|CR|CRLF).</p> | `false` | `LF` |
+<!-- ya-action-docs-inputs source="tests/fixtures/workflow/action_docs_workflow.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/workflow/all_fields_workflow.yml" -->

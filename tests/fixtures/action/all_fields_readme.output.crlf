@@ -1,0 +1,32 @@
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| `inputA` | <p>A description A</p> | `false` | `""` |
+| `inputB` | <p>A description B</p> | `true` | `""` |
+| `inputC` | <p>A description C</p> | `true` | `C` |
+| `inputD` | <p>A description D</p> | `false` | `D` |
+| `inputE` | <p>A description E</p> | `false` | `false` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Outputs
+
+| name | description |
+| --- | --- |
+| `outputA` | <p>A description A</p> |
+| `outputB` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Runs
+
+This action is a `node12` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->

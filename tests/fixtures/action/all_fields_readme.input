@@ -1,0 +1,11 @@
+<!-- ya-action-docs-header source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="npalm/ya-action-docs" version="v1" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->

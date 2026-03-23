@@ -1,0 +1,21 @@
+<!-- ya-action-docs-header source="tests/fixtures/workflow/all_fields_workflow.yml" -->
+## Description
+
+Anything here
+
+
+<!-- ya-action-docs-header source="tests/fixtures/workflow/all_fields_workflow.yml" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/workflow/all_fields_workflow.yml" -->
+## Inputs
+
+Anything here
+
+<!-- ya-action-docs-inputs source="tests/fixtures/workflow/all_fields_workflow.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/workflow/all_fields_workflow.yml" -->
+## Outputs
+
+Anything here
+
+<!-- ya-action-docs-outputs source="tests/fixtures/workflow/all_fields_workflow.yml" -->
