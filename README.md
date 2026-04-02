@@ -4,6 +4,13 @@
 
 <!-- /BADGES -->
 
+# What is this
+
+This is originate from [action-docs](https://github.com/npalm/action-docs) and is now maintained as [ya-action-docs] for following reasons
+
+- glob often have security fix but upstream is not very active.
+- I want to use biomejs/biome instead of eslint and prettier, and upstream is at eslint previous version and difficult to update.
+
 # Action docs
 
 A CLI to generate and update documentation for GitHub actions or workflows, based on the definition `.yml`. To update your README in a GitHub workflow you can use the [ya-action-docs-action](https://github.com/npalm/ya-action-docs-action).
