@@ -4,12 +4,13 @@
 
 <!-- /BADGES -->
 
-# What is this
+# NOTE: This repo is originate from [action-docs](https://github.com/npalm/action-docs)
 
-This is originate from [action-docs](https://github.com/npalm/action-docs) and is now maintained as [ya-action-docs] for following reasons
+I cloned the repo (instead of forking) because I want to make some changes and the original repo is not very active. The main changes I want to make are: 
 
-- glob often have security fix but upstream is not very active.
-- I want to use biomejs/biome instead of eslint and prettier, and upstream is at eslint previous version and difficult to update.
+- npm packages (e.g. glob) often have security fix but upstream is not very active. I will update the dependencies when I need to.
+- `@biomejs/biome` instead of `eslint` and `prettier` for linting and formatting.
+- vitest instead of jest for testing.
 
 # Action docs
 
