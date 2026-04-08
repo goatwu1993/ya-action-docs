@@ -33,6 +33,13 @@ jobs:
       id-token: write
     name: "Publish to NPM"
     steps:
+    
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Pre publish build
+        run: npm run build
+
       - name: Publish to NPM
         run: npm publish
         if: ${{ needs.release.outputs.release_created == 'true' }}
@@ -78,12 +85,6 @@ jobs:
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Check format and lint
-        run: npm run build
 
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4
         id: release
