@@ -89,4 +89,5 @@ jobs:
         id: release
         with:
           token: ${{ github.token }}
+          skip-github-release: false
           release-type: node
