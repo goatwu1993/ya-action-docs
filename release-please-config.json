@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": false,
+  "always-update": true,
+  "bootstrap-sha": "4a564f91bece3a92b53bf1e8fc8b922e40aa9b5a",
+  "packages": {
+    ".": {
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": false,
+      "bump-patch-for-minor-pre-major": false,
+      "release-type": "node",
+      "draft": false,
+      "prerelease": false,
+      "extra-files": ["README.md"]
+    }
+  }
+}
