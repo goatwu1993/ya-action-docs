@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { replaceInFile } from 'replace-in-file';
 import pkg from 'showdown';
 import { parse } from 'yaml';
-import { LineBreakType, getLineBreak } from './linebreak.js';
+import { getLineBreak, LineBreakType } from './linebreak.js';
+
 const { Converter } = pkg;
 const converter = new Converter();
 

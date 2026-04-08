@@ -1,5 +1,5 @@
 export {
+  defaultOptions,
   generateActionMarkdownDocs,
   Options,
-  defaultOptions,
 } from './action-docs.js';

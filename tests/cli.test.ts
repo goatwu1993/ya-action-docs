@@ -1,8 +1,7 @@
 import * as cp from 'node:child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { describe, expect, test } from 'vitest';
-
-import { readFileSync, writeFileSync } from 'node:fs';
 
 const fixtureDir = path.join('tests', 'fixtures', 'action');
 

@@ -1,7 +1,7 @@
 import { copyFileSync, readFileSync, unlink, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
-import { Options, generateActionMarkdownDocs } from '../src';
+import { generateActionMarkdownDocs, Options } from '../src';
 
 const fixtureDir = path.join('tests', 'fixtures', 'workflow');
 
