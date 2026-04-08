@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.5.7](https://github.com/goatwu1993/ya-action-docs/compare/v2.5.6...v2.5.7) (2026-04-08)
+
+
+### Bug Fixes
+
+* **deps:** bump figlet from 1.8.1 to 1.11.0 ([#13](https://github.com/goatwu1993/ya-action-docs/issues/13)) ([0c2c768](https://github.com/goatwu1993/ya-action-docs/commit/0c2c768fd656b96e862ae4612c1eb90c291bcc3e))
+* **deps:** bump yaml from 2.8.0 to 2.8.3 ([#14](https://github.com/goatwu1993/ya-action-docs/issues/14)) ([99fce8e](https://github.com/goatwu1993/ya-action-docs/commit/99fce8ef46d8475f2791bf2660336546e39df44f))
+* **deps:** bump yargs from 17.7.2 to 18.0.0 ([#11](https://github.com/goatwu1993/ya-action-docs/issues/11)) ([85a59da](https://github.com/goatwu1993/ya-action-docs/commit/85a59dab80fcdd4648672f6cf0892d5211fa1247))
+* **deps:** update replace-in-file to 8.4.0 ([481c732](https://github.com/goatwu1993/ya-action-docs/commit/481c73266522e2c0cc019a7e175b7e824e1506aa))
+* update biome schema to 2.0.6 and fix import ordering ([ebff153](https://github.com/goatwu1993/ya-action-docs/commit/ebff1539d781b6ff04da49c1435b10242da0a0bf))
+
 ## [2.5.2](https://github.com/npalm/action-docs/compare/v2.5.1...v2.5.2) (2025-02-11)
 
 
