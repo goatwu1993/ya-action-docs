@@ -12,7 +12,7 @@
     "prepare": "tsc",
     "tsc": "tsc",
     "build": "tsc",
-    "cspell": "cspell .",
+    "typos": "typos .",
     "format": "biome format --write",
     "format-check": "biome format",
     "lint": "biome check",
@@ -44,6 +44,7 @@
     "figlet": "^1.7.0",
     "replace-in-file": "^8.4.0",
     "showdown": "^2.1.0",
+    "typos": "^1.0.1",
     "yaml": "^2.3.4",
     "yargs": "^17.7.2"
   },
@@ -60,7 +61,6 @@
     "@types/showdown": "^2.0.6",
     "@types/yargs": "^17.0.33",
     "@vitest/coverage-v8": "^4.0.0",
-    "cspell": "^9.1.2",
     "typescript": "^6.0.2",
     "vitest": "^4.0.0",
     "yaml-types": "^0.4.0"

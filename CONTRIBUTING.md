@@ -32,7 +32,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
    # Navigate to the newly cloned directory
    cd <repo-name>
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/<upsteam-owner>/<repo-name>
+   git remote add upstream https://github.com/<upstream-owner>/<repo-name>
 
    # Update the upstream
    git checkout <default-branch>
