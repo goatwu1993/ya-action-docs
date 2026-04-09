@@ -1,8 +1,8 @@
-<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="npalm/ya-action-docs" version="v1" -->
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
 ## Usage
 
 ```yaml
-- uses: npalm/ya-action-docs@v1
+- uses: goatwu1993/ya-action-docs@v1
   with:
     inputA:
     # A description A
@@ -34,4 +34,4 @@
     # Required: false
     # Default: false
 ```
-<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="npalm/ya-action-docs" version="v1" -->
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->

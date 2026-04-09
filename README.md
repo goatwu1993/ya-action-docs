@@ -14,7 +14,7 @@ I cloned the repo (instead of forking) because I want to make some changes and t
 
 # Action docs
 
-A CLI to generate and update documentation for GitHub actions or workflows, based on the definition `.yml`. To update your README in a GitHub workflow you can use the [ya-action-docs-action](https://github.com/npalm/ya-action-docs-action).
+A CLI to generate and update documentation for GitHub actions or workflows, based on the definition `.yml`. To update your README in a GitHub workflow you can use the [ya-action-docs-action](https://github.com/goatwu1993/ya-action-docs-action).
 
 ## TL;DR
 
@@ -148,10 +148,6 @@ await generateActionMarkdownDocs({
   readmeFile: 'README.md'
 });
 ```
-
-## Contribution
-
-We welcome contributions, please checkout the [contribution guide](CONTRIBUTING.md).
 
 ## License
 

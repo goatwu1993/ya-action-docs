@@ -66,9 +66,9 @@
     "yaml-types": "^0.4.0"
   },
   "bugs": {
-    "url": "https://github.com/npalm/ya-action-docs/issues"
+    "url": "https://github.com/goatwu1993/ya-action-docs/issues"
   },
-  "homepage": "https://github.com/npalm/ya-action-docs#readme",
+  "homepage": "https://github.com/goatwu1993/ya-action-docs#readme",
   "directories": {
     "dist": "lib"
   }
