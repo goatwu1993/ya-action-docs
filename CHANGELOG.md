@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.8](https://github.com/goatwu1993/ya-action-docs/compare/v2.5.7...v2.5.8) (2026-05-14)
+
+
+### Bug Fixes
+
+* **deps:** bump yaml from 2.8.3 to 2.9.0 ([#30](https://github.com/goatwu1993/ya-action-docs/issues/30)) ([4f480c9](https://github.com/goatwu1993/ya-action-docs/commit/4f480c9df4c6ec31d1009f41ad20b1f64b8dab3d))
+
 ## [2.5.7](https://github.com/goatwu1993/ya-action-docs/compare/v2.5.6...v2.5.7) (2026-04-08)
 
 
