@@ -130,9 +130,11 @@ async function testReadme(
   doExpect = true,
 ) {
   let captured = '';
-  vi.mocked(writeFileSync).mockImplementation((_path: unknown, data: unknown) => {
-    captured = String(data);
-  });
+  vi.mocked(writeFileSync).mockImplementation(
+    (_path: unknown, data: unknown) => {
+      captured = String(data);
+    },
+  );
 
   await generateActionMarkdownDocs({
     sourceFile: files.sourceFile,
