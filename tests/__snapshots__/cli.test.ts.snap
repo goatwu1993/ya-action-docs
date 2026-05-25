@@ -1,0 +1,239 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CLI tests > Console output including name header and no banner. 1`] = `
+"## An Action
+
+### Description
+
+Default test
+
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li></ul></li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li></ul></li> <li>Item 3</li> </ul> | \`false\` | \`test\` |
+| \`inputB\` | <p>This is a multiline description</p> | \`false\` | \`test\` |
+
+
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description</p> |
+
+
+### Runs
+
+This action is a \`node12\` action.
+
+### Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+  with:
+    inputA:
+    # - Item 1
+    #     - foo, bar, baz
+    # - Item 2
+    #     - [github](https://github.com/)
+    #     - **blah**
+    # - Item 3
+    #
+    # Required: false
+    # Default: test
+
+    inputB:
+    # This is a
+    # multiline description
+    #
+    # Required: false
+    # Default: test
+\`\`\`
+
+
+
+"
+`;
+
+exports[`CLI tests > Console output with TOC 3 and no banner. 1`] = `
+"### Description
+
+Default test
+
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+
+
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+
+
+### Runs
+
+This action is a \`node12\` action.
+
+### Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+
+
+
+"
+`;
+
+exports[`CLI tests > Update readme default 1`] = `
+"<!-- ya-action-docs-header source="tests/fixtures/action/all_fields_action.yml" -->
+## An Action
+<!-- ya-action-docs-header source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+### Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+### Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+### Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+"
+`;
+
+exports[`CLI tests > Update readme with CRLF line breaks. 1`] = `
+"<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+"
+`;

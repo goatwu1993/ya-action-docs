@@ -1,5 +1,5 @@
 import * as cp from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, readFileSync, unlinkSync } from 'node:fs';
 import * as path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
@@ -10,7 +10,6 @@ describe('CLI tests', () => {
     await testReadme(
       path.join(fixtureDir, 'all_fields_action.yml'),
       path.join(fixtureDir, 'all_fields_readme.input'),
-      path.join(fixtureDir, 'all_fields_readme.output'),
       '-n true',
     );
   });
@@ -19,7 +18,6 @@ describe('CLI tests', () => {
     await testReadme(
       path.join(fixtureDir, 'all_fields_action.yml.crlf'),
       path.join(fixtureDir, 'all_fields_readme.input.crlf'),
-      path.join(fixtureDir, 'all_fields_readme.output.crlf'),
       '-l CRLF',
     );
   });
@@ -29,15 +27,8 @@ describe('CLI tests', () => {
       `-s ${path.join(fixtureDir, 'all_fields_action.yml')} -t 3 --no-banner`,
     );
 
-    const expected = <string>(
-      readFileSync(
-        path.join(fixtureDir, 'all_fields_action_toc3_cli.output'),
-        'utf-8',
-      )
-    );
-
     expect(result.code).toBe(0);
-    expect(result.stdout).toEqual(`${expected}\n`);
+    expect(result.stdout).toMatchSnapshot();
   });
 
   test('Console output including name header and no banner.', async () => {
@@ -45,12 +36,8 @@ describe('CLI tests', () => {
       `-s ${path.join(fixtureDir, 'action.yml')} -n true --no-banner`,
     );
 
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'default-with-header.output'), 'utf-8')
-    );
-
     expect(result.code).toBe(0);
-    expect(result.stdout).toEqual(`${expected}\n`);
+    expect(result.stdout).toMatchSnapshot();
   });
 });
 
@@ -80,20 +67,19 @@ function cli(args: string): Promise<CliResponse> {
 async function testReadme(
   sourceFile: string,
   originalReadme: string,
-  fixtureReadme: string,
   extraArgs = '',
   exitCode = 0,
 ) {
-  const expected = <string>readFileSync(fixtureReadme, 'utf-8');
-  const original = <string>readFileSync(originalReadme, 'utf-8');
+  const tmpFile = `${originalReadme}.tmp`;
+  copyFileSync(originalReadme, tmpFile);
 
-  const result = await cli(
-    `-u ${originalReadme} -s ${sourceFile} ${extraArgs}`,
-  );
-  expect(result.code).toBe(exitCode);
+  try {
+    const result = await cli(`-u ${tmpFile} -s ${sourceFile} ${extraArgs}`);
+    expect(result.code).toBe(exitCode);
 
-  const updated = <string>readFileSync(originalReadme, 'utf-8');
-
-  writeFileSync(originalReadme, original);
-  expect(updated).toEqual(expected);
+    const updated = readFileSync(tmpFile, 'utf-8');
+    expect(updated).toMatchSnapshot();
+  } finally {
+    unlinkSync(tmpFile);
+  }
 }

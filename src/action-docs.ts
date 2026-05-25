@@ -1,5 +1,4 @@
-import { readFileSync } from 'node:fs';
-import { replaceInFile } from 'replace-in-file';
+import { readFileSync, writeFileSync } from 'node:fs';
 import pkg from 'showdown';
 import { parse } from 'yaml';
 import { getLineBreak, LineBreakType } from './linebreak.js';
@@ -208,17 +207,26 @@ export async function generateActionMarkdownDocs(
   let outputString = '';
 
   for (const key in docs) {
-    const value = docs[key];
-
-    if (options.updateReadme) {
-      await updateReadme(options, value, key, options.sourceFile);
-    }
-
-    outputString += value;
+    outputString += docs[key];
   }
 
   if (options.updateReadme) {
-    await updateReadme(options, outputString, 'all', options.sourceFile);
+    let readmeContent = String(readFileSync(options.readmeFile, 'utf-8'));
+    for (const key in docs) {
+      readmeContent = applyReadmeSection(
+        readmeContent,
+        docs[key],
+        key,
+        options,
+      );
+    }
+    readmeContent = applyReadmeSection(
+      readmeContent,
+      outputString,
+      'all',
+      options,
+    );
+    writeFileSync(options.readmeFile, readmeContent);
   }
 
   return outputString;
@@ -326,61 +334,49 @@ function escapeRegExp(x: string): string {
   return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
-async function updateReadme(
-  options: DefaultOptions,
+function applyReadmeSection(
+  readmeContent: string,
   text: string,
   section: string,
-  sourceFile: string,
-): Promise<void> {
+  options: DefaultOptions,
+): string {
   const lineBreak = getLineBreak(options.lineBreaks);
+  const sourceFile = options.sourceFile;
 
-  const readmeFileText = String(readFileSync(options.readmeFile, 'utf-8'));
-  const sourceOrActionMatches = readmeFileText.match(
+  const sourceOrActionMatches = readmeContent.match(
     new RegExp(`<!-- ya-action-docs-${section} (source|action)`),
   ) as string[];
 
-  if (sourceOrActionMatches) {
-    const sourceOrAction = sourceOrActionMatches[1];
-    const matchProjectVersion = readmeFileText.match(
-      new RegExp(
-        `<!-- ya-action-docs-${section} ${sourceOrAction}="${escapeRegExp(sourceFile)}" project="(.*)" version="(.*)" -->.?`,
-      ),
-    ) as string[];
+  if (!sourceOrActionMatches) return readmeContent;
 
-    let commentExpression = `<!-- ya-action-docs-${section} ${sourceOrAction}="${sourceFile}" PROJECT_VERSION-->`;
-    commentExpression = commentExpression.replace(
-      'PROJECT_VERSION',
-      matchProjectVersion
-        ? `project="${matchProjectVersion[1]}" version="${matchProjectVersion[2]}" `
-        : '',
-    );
+  const sourceOrAction = sourceOrActionMatches[1];
+  const matchProjectVersion = readmeContent.match(
+    new RegExp(
+      `<!-- ya-action-docs-${section} ${sourceOrAction}="${escapeRegExp(sourceFile)}" project="(.*)" version="(.*)" -->.?`,
+    ),
+  ) as string[];
 
-    const regexp = new RegExp(
-      `${escapeRegExp(commentExpression)}(?:(?:\r\n|\r|\n.*)+${escapeRegExp(commentExpression)})?`,
-    );
+  let commentExpression = `<!-- ya-action-docs-${section} ${sourceOrAction}="${sourceFile}" PROJECT_VERSION-->`;
+  commentExpression = commentExpression.replace(
+    'PROJECT_VERSION',
+    matchProjectVersion
+      ? `project="${matchProjectVersion[1]}" version="${matchProjectVersion[2]}" `
+      : '',
+  );
 
-    const processedText = text
-      .trim()
-      .replace(
-        '***PROJECT***',
-        matchProjectVersion ? matchProjectVersion[1] : '',
-      )
-      .replace(
-        '***VERSION***',
-        matchProjectVersion ? matchProjectVersion[2] : '',
-      );
+  const regexp = new RegExp(
+    `${escapeRegExp(commentExpression)}(?:(?:\r\n|\r|\n.*)+${escapeRegExp(commentExpression)})?`,
+  );
 
-    await replaceInFile({
-      files: options.readmeFile,
-      from: regexp,
-      to:
-        commentExpression +
-        lineBreak +
-        processedText +
-        lineBreak +
-        commentExpression,
-    });
-  }
+  const processedText = text
+    .trim()
+    .replace('***PROJECT***', matchProjectVersion ? matchProjectVersion[1] : '')
+    .replace('***VERSION***', matchProjectVersion ? matchProjectVersion[2] : '');
+
+  return readmeContent.replace(
+    regexp,
+    commentExpression + lineBreak + processedText + lineBreak + commentExpression,
+  );
 }
 
 function createMarkdownSection(

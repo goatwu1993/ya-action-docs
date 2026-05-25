@@ -1,0 +1,609 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Backwards compatibility > Deprecated action option still works correctly 1`] = `
+"<!-- ya-action-docs-header action="tests/fixtures/action/all_fields_action.yml" -->
+## An Action
+<!-- ya-action-docs-header action="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-description action="tests/fixtures/action/all_fields_action.yml" -->
+### Description
+
+Default test
+<!-- ya-action-docs-description action="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-usage action="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+### Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+<!-- ya-action-docs-usage action="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+
+<!-- ya-action-docs-inputs action="tests/fixtures/action/all_fields_action.yml" -->
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs action="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-outputs action="tests/fixtures/action/all_fields_action.yml" -->
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs action="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-runs action="tests/fixtures/action/all_fields_action.yml" -->
+### Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs action="tests/fixtures/action/all_fields_action.yml" -->
+"
+`;
+
+exports[`Test output > A minimal action definition. 1`] = `
+"## Description
+
+Default test
+
+## Runs
+
+This action is a \`docker\` action.
+
+## Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+\`\`\`
+
+
+"
+`;
+
+exports[`Test output > All fields action definition. 1`] = `
+"## Description
+
+Default test
+
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+
+
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+
+
+## Runs
+
+This action is a \`node12\` action.
+
+## Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+
+
+"
+`;
+
+exports[`Test output > With defaults. 1`] = `
+"## Description
+
+Default test
+
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li></ul></li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li></ul></li> <li>Item 3</li> </ul> | \`false\` | \`test\` |
+| \`inputB\` | <p>This is a multiline description</p> | \`false\` | \`test\` |
+
+
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description</p> |
+
+
+## Runs
+
+This action is a \`node12\` action.
+
+## Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+  with:
+    inputA:
+    # - Item 1
+    #     - foo, bar, baz
+    # - Item 2
+    #     - [github](https://github.com/)
+    #     - **blah**
+    # - Item 3
+    #
+    # Required: false
+    # Default: test
+
+    inputB:
+    # This is a
+    # multiline description
+    #
+    # Required: false
+    # Default: test
+\`\`\`
+
+
+"
+`;
+
+exports[`Test output > With name header included. 1`] = `
+"## An Action
+
+### Description
+
+Default test
+
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li></ul></li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li></ul></li> <li>Item 3</li> </ul> | \`false\` | \`test\` |
+| \`inputB\` | <p>This is a multiline description</p> | \`false\` | \`test\` |
+
+
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description</p> |
+
+
+### Runs
+
+This action is a \`node12\` action.
+
+### Usage
+
+\`\`\`yaml
+- uses: ***PROJECT***@***VERSION***
+  with:
+    inputA:
+    # - Item 1
+    #     - foo, bar, baz
+    # - Item 2
+    #     - [github](https://github.com/)
+    #     - **blah**
+    # - Item 3
+    #
+    # Required: false
+    # Default: test
+
+    inputB:
+    # This is a
+    # multiline description
+    #
+    # Required: false
+    # Default: test
+\`\`\`
+
+
+"
+`;
+
+exports[`Test update readme  > All fields one annotation 1`] = `
+"<!-- ya-action-docs-all source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+## Description
+
+Default test
+
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+
+
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+
+
+## Runs
+
+This action is a \`node12\` action.
+
+## Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+<!-- ya-action-docs-all source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+"
+`;
+
+exports[`Test update readme  > Empty readme (all fields) 1`] = `
+"<!-- ya-action-docs-header source="tests/fixtures/action/all_fields_action.yml" -->
+## An Action
+<!-- ya-action-docs-header source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+### Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+### Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+### Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+### Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+### Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+"
+`;
+
+exports[`Test update readme  > Filled readme (all fields) 1`] = `
+"<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+## Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+## Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml" -->
+"
+`;
+
+exports[`Test update readme  > Readme (all fields) with CRLF line breaks 1`] = `
+"<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Description
+
+Default test
+<!-- ya-action-docs-description source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>A description A</p> | \`false\` | \`""\` |
+| \`inputB\` | <p>A description B</p> | \`true\` | \`""\` |
+| \`inputC\` | <p>A description C</p> | \`true\` | \`C\` |
+| \`inputD\` | <p>A description D</p> | \`false\` | \`D\` |
+| \`inputE\` | <p>A description E</p> | \`false\` | \`false\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+## Runs
+
+This action is a \`node12\` action.
+<!-- ya-action-docs-runs source="tests/fixtures/action/all_fields_action.yml.crlf" -->
+"
+`;
+
+exports[`Test update readme  > Readme (inputs) for ya-action-docs-action 1`] = `
+"<!-- ya-action-docs-inputs source="tests/fixtures/action/action_docs_action_action.yml" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`readme\` | <p>Readme file to update.</p> | \`false\` | \`README.md\` |
+| \`sourceFile\` | <p>The action definition file.</p> | \`false\` | \`action.yml\` |
+| \`tocLevel\` | <p>TOC level used for the headers.</p> | \`false\` | \`2\` |
+| \`lineBreaks\` | <p>Line breaks to be used in updated readme (LF|CR|CRLF).</p> | \`false\` | \`LF\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/action_docs_action_action.yml" -->
+"
+`;
+
+exports[`Test update readme  > Readme for deprecated inputs 1`] = `
+"<!-- ya-action-docs-inputs action="tests/fixtures/action/deprecated_input_action.yml" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`inputA\` | <p>This is an input<br/><em>Deprecated: This input has been deprecated</em></p> | \`false\` | \`""\` |
+| \`inputB\` | <p>This is an input<br/><em>Deprecated</em></p> | \`false\` | \`""\` |
+<!-- ya-action-docs-inputs action="tests/fixtures/action/deprecated_input_action.yml" -->
+"
+`;
+
+exports[`Test update readme  > Readme for two action.yml-s 1`] = `
+"<!-- ya-action-docs-inputs source="tests/fixtures/action/action_docs_action_action.yml" -->
+## Inputs
+
+| name | description | required | default |
+| --- | --- | --- | --- |
+| \`readme\` | <p>Readme file to update.</p> | \`false\` | \`README.md\` |
+| \`sourceFile\` | <p>The action definition file.</p> | \`false\` | \`action.yml\` |
+| \`tocLevel\` | <p>TOC level used for the headers.</p> | \`false\` | \`2\` |
+| \`lineBreaks\` | <p>Line breaks to be used in updated readme (LF|CR|CRLF).</p> | \`false\` | \`LF\` |
+<!-- ya-action-docs-inputs source="tests/fixtures/action/action_docs_action_action.yml" -->
+
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+## Outputs
+
+| name | description |
+| --- | --- |
+| \`outputA\` | <p>A description A</p> |
+| \`outputB\` | <p>A description B</p> |
+<!-- ya-action-docs-outputs source="tests/fixtures/action/all_fields_action.yml" -->
+"
+`;
+
+exports[`Test usage format > Multi-line descriptions. 1`] = `
+"<!-- ya-action-docs-usage source="tests/fixtures/action/action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+## Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # - Item 1
+    #     - foo, bar, baz
+    # - Item 2
+    #     - [github](https://github.com/)
+    #     - **blah**
+    # - Item 3
+    #
+    # Required: false
+    # Default: test
+
+    inputB:
+    # This is a
+    # multiline description
+    #
+    # Required: false
+    # Default: test
+\`\`\`
+<!-- ya-action-docs-usage source="tests/fixtures/action/action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+"
+`;
+
+exports[`Test usage format > With and without defaults. 1`] = `
+"<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+## Usage
+
+\`\`\`yaml
+- uses: goatwu1993/ya-action-docs@v1
+  with:
+    inputA:
+    # A description A
+    #
+    # Required: false
+    # Default: ""
+
+    inputB:
+    # A description B
+    #
+    # Required: true
+    # Default: ""
+
+    inputC:
+    # A description C
+    #
+    # Required: true
+    # Default: C
+
+    inputD:
+    # A description D
+    #
+    # Required: false
+    # Default: D
+
+    inputE:
+    # A description E
+    #
+    # Required: false
+    # Default: false
+\`\`\`
+<!-- ya-action-docs-usage source="tests/fixtures/action/all_fields_action.yml" project="goatwu1993/ya-action-docs" version="v1" -->
+"
+`;

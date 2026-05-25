@@ -1,62 +1,43 @@
-import { copyFileSync, readFileSync, unlink, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { generateActionMarkdownDocs, Options } from '../src';
+
+vi.mock('node:fs', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('node:fs')>();
+  return { ...actual, writeFileSync: vi.fn() };
+});
 
 const fixtureDir = path.join('tests', 'fixtures', 'action');
 
-// By default an 'action.yml' is expected at the runtime location. Therefore we copy one during the test.
-beforeAll(() => {
-  copyFileSync(path.join(fixtureDir, 'action.yml'), 'action.yml');
-});
-
-afterAll(() => {
-  return unlink('action.yml', (err) => {
-    if (err) throw err;
-  });
-});
-
 describe('Test output', () => {
   test('With defaults.', async () => {
-    const markdown = await generateActionMarkdownDocs();
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'default.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    const markdown = await generateActionMarkdownDocs({
+      sourceFile: path.join(fixtureDir, 'action.yml'),
+    });
+    expect(markdown).toMatchSnapshot();
   });
 
   test('With name header included.', async () => {
     const markdown = await generateActionMarkdownDocs({
+      sourceFile: path.join(fixtureDir, 'action.yml'),
       includeNameHeader: true,
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'default-with-header.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 
   test('A minimal action definition.', async () => {
     const markdown = await generateActionMarkdownDocs({
       sourceFile: path.join(fixtureDir, 'minimal_action.yml'),
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'minimal_action.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 
   test('All fields action definition.', async () => {
     const markdown = await generateActionMarkdownDocs({
       sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'all_fields_action.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 });
 
@@ -66,7 +47,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
         originalReadme: path.join(fixtureDir, 'all_fields_readme.input'),
-        fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output'),
       },
       {
         includeNameHeader: true,
@@ -78,7 +58,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
         originalReadme: path.join(fixtureDir, 'all_fields_readme.input'),
-        fixtureReadme: path.join(fixtureDir, 'all_fields_readme_header.output'),
       },
       {
         includeNameHeader: true,
@@ -92,7 +71,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_one_annotation.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_one_annotation.output'),
     });
   });
 
@@ -100,7 +78,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_readme_filled.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_readme_filled.output'),
     });
   });
 
@@ -109,7 +86,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
         originalReadme: path.join(fixtureDir, 'all_fields_readme.input'),
-        fixtureReadme: path.join(fixtureDir, 'all_fields_readme_header.output'),
       },
       {
         includeNameHeader: true,
@@ -124,7 +100,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_action.yml.crlf'),
         originalReadme: path.join(fixtureDir, 'all_fields_readme.input.crlf'),
-        fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output.crlf'),
       },
       { lineBreaks: 'CRLF' },
     );
@@ -134,7 +109,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'action_docs_action_action.yml'),
       originalReadme: path.join(fixtureDir, 'action_docs_action_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'action_docs_action_readme.output'),
     });
   });
 
@@ -143,7 +117,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'action_docs_action_action.yml'),
         originalReadme: path.join(fixtureDir, 'two_actions_readme.input'),
-        fixtureReadme: path.join(fixtureDir, 'two_actions_readme.output'),
       },
       {},
       false,
@@ -152,7 +125,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
       originalReadme: path.join(fixtureDir, 'two_actions_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'two_actions_readme.output'),
     });
   });
 
@@ -160,7 +132,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'deprecated_input_action.yml'),
       originalReadme: path.join(fixtureDir, 'deprecated_input_action.input'),
-      fixtureReadme: path.join(fixtureDir, 'deprecated_input_action.output'),
     });
   });
 });
@@ -170,7 +141,6 @@ describe('Test usage format', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'action.yml'),
       originalReadme: path.join(fixtureDir, 'action_usage_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'action_usage_readme.output'),
     });
   });
 
@@ -178,7 +148,6 @@ describe('Test usage format', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_usage_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_usage_readme.output'),
     });
   });
 });
@@ -189,7 +158,6 @@ describe('Backwards compatibility', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_action.yml'),
         originalReadme: path.join(fixtureDir, 'action_deprecated.input'),
-        fixtureReadme: path.join(fixtureDir, 'action_deprecated.output'),
       },
       {
         includeNameHeader: true,
@@ -201,7 +169,6 @@ describe('Backwards compatibility', () => {
 interface ReadmeTestFixtures {
   sourceFile: string;
   originalReadme: string;
-  fixtureReadme: string;
 }
 
 async function testReadme(
@@ -210,24 +177,20 @@ async function testReadme(
   doExpect = true,
   includeNameHeader = false,
 ) {
-  const expected = <string>readFileSync(files.fixtureReadme, 'utf-8');
-  const original = <string>readFileSync(files.originalReadme, 'utf-8');
+  let captured = '';
+  vi.mocked(writeFileSync).mockImplementation((_path: unknown, data: unknown) => {
+    captured = String(data);
+  });
 
-  try {
-    await generateActionMarkdownDocs({
-      sourceFile: files.sourceFile,
-      updateReadme: true,
-      includeNameHeader: includeNameHeader,
-      readmeFile: files.originalReadme,
-      ...overwriteOptions,
-    });
+  await generateActionMarkdownDocs({
+    sourceFile: files.sourceFile,
+    updateReadme: true,
+    includeNameHeader,
+    readmeFile: files.originalReadme,
+    ...overwriteOptions,
+  });
 
-    const updated = <string>readFileSync(files.originalReadme, 'utf-8');
-
-    if (doExpect) {
-      expect(updated).toEqual(expected);
-    }
-  } finally {
-    writeFileSync(files.originalReadme, original);
+  if (doExpect) {
+    expect(captured).toMatchSnapshot();
   }
 }

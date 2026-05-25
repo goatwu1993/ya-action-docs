@@ -1,20 +1,14 @@
-import { copyFileSync, readFileSync, unlink, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { generateActionMarkdownDocs, Options } from '../src';
 
+vi.mock('node:fs', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('node:fs')>();
+  return { ...actual, writeFileSync: vi.fn() };
+});
+
 const fixtureDir = path.join('tests', 'fixtures', 'workflow');
-
-// By default a 'workflow.yml' is expected at the runtime location. Therefore we copy one during the test.
-beforeAll(() => {
-  copyFileSync(path.join(fixtureDir, 'workflow.yml'), 'workflow.yml');
-});
-
-afterAll(() => {
-  return unlink('workflow.yml', (err) => {
-    if (err) throw err;
-  });
-});
 
 describe('Test output', () => {
   test('With defaults.', async () => {
@@ -22,11 +16,7 @@ describe('Test output', () => {
       sourceFile: path.join(fixtureDir, 'workflow.yml'),
       includeNameHeader: true,
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'default.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 
   test('With secrets.', async () => {
@@ -34,11 +24,7 @@ describe('Test output', () => {
       sourceFile: path.join(fixtureDir, 'secrets_workflow.yml'),
       includeNameHeader: true,
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'secrets_workflow.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 
   test('A minimal workflow definition.', async () => {
@@ -46,11 +32,7 @@ describe('Test output', () => {
       sourceFile: path.join(fixtureDir, 'minimal_workflow.yml'),
       includeNameHeader: true,
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'minimal_workflow.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 
   test('All fields workflow definition.', async () => {
@@ -58,11 +40,7 @@ describe('Test output', () => {
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       includeNameHeader: true,
     });
-    const expected = <string>(
-      readFileSync(path.join(fixtureDir, 'all_fields_workflow.output'), 'utf-8')
-    );
-
-    expect(markdown).toEqual(expected);
+    expect(markdown).toMatchSnapshot();
   });
 });
 
@@ -71,7 +49,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output'),
     });
   });
 
@@ -79,7 +56,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_one_annotation.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_one_annotation.output'),
     });
   });
 
@@ -87,7 +63,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_readme_filled.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_readme_filled.output'),
     });
   });
 
@@ -96,7 +71,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
         originalReadme: path.join(fixtureDir, 'all_fields_readme.input.crlf'),
-        fixtureReadme: path.join(fixtureDir, 'all_fields_readme.output.crlf'),
       },
       { lineBreaks: 'CRLF' },
     );
@@ -109,10 +83,6 @@ describe('Test update readme ', () => {
         fixtureDir,
         'action_docs_workflow_readme.input',
       ),
-      fixtureReadme: path.join(
-        fixtureDir,
-        'action_docs_workflow_readme.output',
-      ),
     });
   });
 
@@ -121,7 +91,6 @@ describe('Test update readme ', () => {
       {
         sourceFile: path.join(fixtureDir, 'action_docs_workflow.yml'),
         originalReadme: path.join(fixtureDir, 'two_workflows_readme.input'),
-        fixtureReadme: path.join(fixtureDir, 'two_workflows_readme.output'),
       },
       {},
       false,
@@ -130,7 +99,6 @@ describe('Test update readme ', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       originalReadme: path.join(fixtureDir, 'two_workflows_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'two_workflows_readme.output'),
     });
   });
 });
@@ -140,7 +108,6 @@ describe('Test usage format', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'workflow.yml'),
       originalReadme: path.join(fixtureDir, 'workflow_usage_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'workflow_usage_readme.output'),
     });
   });
 
@@ -148,7 +115,6 @@ describe('Test usage format', () => {
     await testReadme({
       sourceFile: path.join(fixtureDir, 'all_fields_workflow.yml'),
       originalReadme: path.join(fixtureDir, 'all_fields_usage_readme.input'),
-      fixtureReadme: path.join(fixtureDir, 'all_fields_usage_readme.output'),
     });
   });
 });
@@ -156,7 +122,6 @@ describe('Test usage format', () => {
 interface ReadmeTestFixtures {
   sourceFile: string;
   originalReadme: string;
-  fixtureReadme: string;
 }
 
 async function testReadme(
@@ -164,24 +129,20 @@ async function testReadme(
   overwriteOptions?: Options,
   doExpect = true,
 ) {
-  const expected = <string>readFileSync(files.fixtureReadme, 'utf-8');
-  const original = <string>readFileSync(files.originalReadme, 'utf-8');
+  let captured = '';
+  vi.mocked(writeFileSync).mockImplementation((_path: unknown, data: unknown) => {
+    captured = String(data);
+  });
 
-  try {
-    await generateActionMarkdownDocs({
-      sourceFile: files.sourceFile,
-      updateReadme: true,
-      readmeFile: files.originalReadme,
-      includeNameHeader: true,
-      ...overwriteOptions,
-    });
+  await generateActionMarkdownDocs({
+    sourceFile: files.sourceFile,
+    updateReadme: true,
+    readmeFile: files.originalReadme,
+    includeNameHeader: true,
+    ...overwriteOptions,
+  });
 
-    const updated = <string>readFileSync(files.originalReadme, 'utf-8');
-
-    if (doExpect) {
-      expect(updated).toEqual(expected);
-    }
-  } finally {
-    writeFileSync(files.originalReadme, original);
+  if (doExpect) {
+    expect(captured).toMatchSnapshot();
   }
 }
