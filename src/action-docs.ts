@@ -1,10 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import pkg from 'showdown';
+import { marked } from 'marked';
 import { parse } from 'yaml';
 import { getLineBreak, LineBreakType } from './linebreak.js';
-
-const { Converter } = pkg;
-const converter = new Converter();
 
 export interface Options {
   tocLevel?: number;
@@ -371,11 +368,18 @@ function applyReadmeSection(
   const processedText = text
     .trim()
     .replace('***PROJECT***', matchProjectVersion ? matchProjectVersion[1] : '')
-    .replace('***VERSION***', matchProjectVersion ? matchProjectVersion[2] : '');
+    .replace(
+      '***VERSION***',
+      matchProjectVersion ? matchProjectVersion[2] : '',
+    );
 
   return readmeContent.replace(
     regexp,
-    commentExpression + lineBreak + processedText + lineBreak + commentExpression,
+    commentExpression +
+      lineBreak +
+      processedText +
+      lineBreak +
+      commentExpression,
   );
 }
 
@@ -453,7 +457,9 @@ function getInputOutput(
 
       if (format) {
         if (isHtmlColumn(columnName)) {
-          rowValue = stripNewLines(converter.makeHtml(rowValue)).trim();
+          rowValue = stripNewLines(
+            marked.parse(rowValue, { async: false }) as string,
+          ).trim();
         } else {
           rowValue = `\`${rowValue}\``;
         }

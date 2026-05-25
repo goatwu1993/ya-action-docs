@@ -98,7 +98,7 @@ exports[`Test output > With defaults. 1`] = `
 
 | name | description | type | required | default |
 | --- | --- | --- | --- | --- |
-| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li></ul></li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li></ul></li> <li>Item 3</li> </ul> | \`string\` | \`false\` | \`This is a default\` |
+| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li> </ul> </li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li> </ul> </li> <li>Item 3</li> </ul> | \`string\` | \`false\` | \`This is a default\` |
 | \`inputB\` | <p>This is a multiline description</p> | \`number\` | \`true\` | \`""\` |
 
 
@@ -148,7 +148,7 @@ exports[`Test output > With secrets. 1`] = `
 
 | name | description | type | required | default |
 | --- | --- | --- | --- | --- |
-| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li></ul></li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li></ul></li> <li>Item 3</li> </ul> | \`string\` | \`false\` | \`This is a default\` |
+| \`inputA\` | <ul> <li>Item 1<ul> <li>foo, bar, baz</li> </ul> </li> <li>Item 2<ul> <li><a href="https://github.com/">github</a></li> <li><strong>blah</strong></li> </ul> </li> <li>Item 3</li> </ul> | \`string\` | \`false\` | \`This is a default\` |
 | \`inputB\` | <p>This is a multiline description</p> | \`number\` | \`true\` | \`""\` |
 
 
