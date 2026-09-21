@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.10](https://github.com/goatwu1993/ya-action-docs/compare/v2.5.9...v2.5.10) (2026-09-21)
+
+
+### Bug Fixes
+
+* **deps:** bump chalk from 5.6.2 to 6.0.0 ([#62](https://github.com/goatwu1993/ya-action-docs/issues/62)) ([8d937e6](https://github.com/goatwu1993/ya-action-docs/commit/8d937e65bdd8ef184c78c466163a5fa2ed4567de))
+* **deps:** bump figlet from 1.11.3 to 1.11.4 ([#64](https://github.com/goatwu1993/ya-action-docs/issues/64)) ([d31f516](https://github.com/goatwu1993/ya-action-docs/commit/d31f516e0b5a36b08abbd4830b0b163f1e666b75))
+* **deps:** bump marked from 18.0.10 to 18.0.12 ([#75](https://github.com/goatwu1993/ya-action-docs/issues/75)) ([0739ab0](https://github.com/goatwu1993/ya-action-docs/commit/0739ab07721f9e2d0ce3b686d6c78a2c44d39d69))
+* **deps:** bump marked from 18.0.7 to 18.0.9 ([#63](https://github.com/goatwu1993/ya-action-docs/issues/63)) ([ffb321e](https://github.com/goatwu1993/ya-action-docs/commit/ffb321ee2216a20f3935f9f0acac3549ad608b2b))
+* **deps:** bump marked from 18.0.9 to 18.0.10 ([#69](https://github.com/goatwu1993/ya-action-docs/issues/69)) ([05298b7](https://github.com/goatwu1993/ya-action-docs/commit/05298b72812098c7a539f8c58bbce28af0d8ec64))
+* **deps:** bump yaml from 2.9.0 to 2.9.1 ([#78](https://github.com/goatwu1993/ya-action-docs/issues/78)) ([aa681d1](https://github.com/goatwu1993/ya-action-docs/commit/aa681d1a6fb890ea99f71a31eac47c040a5942a1))
+
 ## [2.5.9](https://github.com/goatwu1993/ya-action-docs/compare/v2.5.8...v2.5.9) (2026-08-12)
 
 
